@@ -7,6 +7,8 @@ import path from 'path';
 import { fileURLToPath } from 'url';
 import connectDB from './config/db.js';
 
+import errorHandler from './middleware/errorHandler.js';
+
 // ES6 module __dirname workaround
 // because when using ES Modules, __dirname isn't automatically available
 const __filename = fileURLToPath(import.meta.url); //converts the URL into a filesystem path
@@ -54,6 +56,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 // Routes
+app.use(errorHandler);
 
 // 404 handler
 app.use((req, res) => {
