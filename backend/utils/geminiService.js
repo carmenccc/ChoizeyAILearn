@@ -77,7 +77,7 @@ export const generateFlashcards = async (text, count = 10) => {
  * @returns {Promise<Array<{question: string, options: Array, correctAnswer: string, explanation: string, difficulty: string}>>}
  */
 export const generateQuiz = async (text, numQuestions = 5) => {
-    const prompt = `Generate exactly ${numQuestions} multiple choice questions from the following text.
+    const prompt = `Generate exactly ${numQuestions} different multiple choice questions from the following text.
     Format each question as:
     Q: [Question]
     O1: [Option 1]
@@ -105,7 +105,7 @@ export const generateQuiz = async (text, numQuestions = 5) => {
         const questionBlocks = generatedText.split('---').filter(q => q.trim());
 
         for (const block of questionBlocks) {
-            const line = block.trim().split('\n');
+            const lines = block.trim().split('\n');
             let question = '', options = [], correctAnswer = '', explanation = '', difficulty = 'medium';
 
             for (const line of lines) {
@@ -119,7 +119,7 @@ export const generateQuiz = async (text, numQuestions = 5) => {
                 } else if (trimmed.startsWith('E:')) {
                     explanation = trimmed.substring(2).trim();
                 } else if (trimmed.startsWith('D:')) {
-                    diff = trimmed.substring(2).trim().toLowerCase();
+                    const diff = trimmed.substring(2).trim().toLowerCase();
                     if (['easy', 'medum', 'hard'].includes(diff)) {
                         difficulty = diff;
                     }
@@ -129,9 +129,8 @@ export const generateQuiz = async (text, numQuestions = 5) => {
             if (question && options.length === 4 && correctAnswer) {
                 questions.push({ question, options, correctAnswer, explanation, difficulty });
             }
-
-            return questions.slice(0, numQuestions);
         } 
+        return questions.slice(0, numQuestions);
     } catch (error) {
         console.error('Gemini API error:', error);
         throw new Error('Failed to generate quiz');
@@ -170,7 +169,7 @@ export const generateSummary = async (text) => {
  * @returns {Promise<string>}
  */
 export const chatWithContext = async (question, chunks) => {
-    const context = chunks.map((c, i) => `[Chunk ${i + 1}]\n${c.context}`).join('\n\n');
+    const context = chunks.map((c, i) => `[Chunk ${i + 1}]\n${c.content}`).join('\n\n');
 
     const prompt = `Based on the following context from a document, Analyse the context and answer the user's questions.
     If the answer is not in the context, say so.
@@ -185,7 +184,7 @@ export const chatWithContext = async (question, chunks) => {
     try {
         const response = await ai.models.generateContent({
             model: "gemini-3.5-flash-lite",
-            cotents: prompt,
+            contents: prompt,
         })
         const generatedText = response.text;
         return generatedText
@@ -213,7 +212,7 @@ export const explainConcept = async (concept, context) => {
     try {
         const response = await ai.models.generateContent({
             model: "gemini-3.5-flash-lite",
-            cotents: prompt,
+            contents: prompt,
         })
         const generatedText = response.text;
         return generatedText
