@@ -40,6 +40,7 @@ const LoginPage = () => {
 
       <div className='relative w-full max-w-md px-6'>
         <div className='bg-white/80 backdrop-blur-xl border border-slate-200/60 rounded-3xl shadow-xl shadow-slate-200/60 p-10'>
+        
           {/* Header */}
           <div className='text-center mb-10'>
             <div className='inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-linear-to-br from-emerald-400 to-teal-500 shadow-lg shadow-emerald-500/25 mb-6'>
@@ -145,6 +146,7 @@ const LoginPage = () => {
           <p className='text-center text-xs text-slate-400 mt-6'>
             By continuing, you agree to our Terms & Privacy Policy
           </p>
+
         </div>
       </div>
       
