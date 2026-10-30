@@ -9,7 +9,7 @@ const Button = ({
     variant = "primary",
     size = "md",
 }) => {
-    const baseStyles = 'inline-flex items-center justify-center gap-2 font-semibold rounded-xl transition-all duration-200 active:scale-[0.98] diabled:opacity-50 diabled:cursor-not-allowed diabled:active-scale-100 whitespace-nowrap';
+    const baseStyles = 'inline-flex items-center justify-center gap-2 font-semibold rounded-xl transition-all duration-200 active:scale-[0.98] disabled:opacity-50 disabled:cursor-not-allowed disabled:active-scale-100 whitespace-nowrap';
 
     const variantStyles = {
         primary: 'bg-linear-to-r from-emerald-500 to-teal-500 text-white shadow-lg shadow-emerald-500/25 hover:from-emerald-600 hover:to-teal-600 hover:shadow-xl hover:shadow-emerald-500/30',
