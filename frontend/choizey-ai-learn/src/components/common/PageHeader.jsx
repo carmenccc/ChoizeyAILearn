@@ -3,7 +3,7 @@ import React from 'react'
 const PageHeader = ({title, subtitle, children}) => {
   return (
     <div className=''>
-        <div>
+        <div className='flex items-start justify-between mb-6'>
             <h1 className='text-2xl font-medium text-slate-900 tracking-tight mb-2'  >
                 {title}
             </h1>
